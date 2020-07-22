@@ -21,7 +21,7 @@ module Fastlane
       #####################################################
 
       def self.format(issue:)
-        "[#{issue.key}](#{@jira_helper.url(issue: issue)}) - #{issue.summary}"
+        "[#{issue.key}] - #{issue.summary}"
       end
 
       def self.format_issues(issues:, include_commits:)
@@ -35,16 +35,8 @@ module Fastlane
         changes = format_issues(issues: issues, include_commits: include_commits)
         changes = 'No changes included.' if changes.to_s.empty?
 
-        changelog = [
-          '### Changelog',
-          '',
-          changes,
-          '',
-          "Built by [Jenkins](#{url})"
-        ].join("\n")
-
-        UI.important(changelog)
-        return changelog
+        UI.important(changes)
+        return changes
       end
 
       #####################################################
